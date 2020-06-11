@@ -2,7 +2,7 @@
 
 Live preview: https://ocr-apps.ctsi.ufl.edu/dashboard
 
-This dashboard performs analysis and prepares visualization for the University of Florida's COVID-19 proposals, IRBs and Enrollment data. Uses SB-Admin 2 template designs with Flask and Google Charts.
+This dashboard performs analysis and prepares visualization for the University of Florida's COVID-19 proposals, IRBs and Enrollment data.
 
 ### Tech Stack
 
