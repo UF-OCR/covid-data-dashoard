@@ -1,0 +1,8 @@
+Flask==1.1
+pandas
+xlrd >= 1.0.0
+numpy
+lxml==4.2.5
+pickle-mixin
+cachelib
+requests

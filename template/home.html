@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+            var total_proposals = '{{total_proposals}}';
+            var total_direct = '$'+'{{total_direct}}';
+            var total_indirect =  '$'+'{{total_indirect}}';
+            var grand_total = '$'+ '{{grand_total}}';
+            var result_data =  {{ result|safe }}
+
+</script>
+<script src="/dashboard{{ url_for('static', filename='js/util.js',version='2') }}" type="text/javascript"></script>
+<script src="/dashboard{{ url_for('static', filename='js/ufirst_chart.js',version='2') }}"
+        type="text/javascript"></script>
+<div class="container-fluid mt-2">
+    <!-- Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Apply Filter(s):
+                <a class="link float-right" href="#" onclick="changeOptions(null,1);">reset</a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <select class="col custom-select" id="reporting_category" onchange="changeOptions(1,1);">
+                    <option value="0">Reporting Category</option>
+                </select>
+                <select class="col custom-select ml-1" id="status" onchange="changeOptions(0,1);">
+                    <option value="0">Status</option>
+                </select>
+                <select class="col custom-select ml-1" id="pi" onchange="changeOptions(2,1);">
+                    <option value="0">PI</option>
+                </select>
+                <select class="col custom-select ml-1" id="dept" onchange="changeOptions(3,1);">
+                    <option value="0">Department</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Proposals</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total_proposals">
+                                {{total_proposals}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">TOTAL DIRECT</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total_direct">
+                                {{"$"}}{{total_direct}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">TOTAL INDIRECT</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total_indirect">
+                                {{"$"}}{{total_indirect}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">GRAND TOTAL</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="grand_total">
+                                {{"$"}}{{grand_total}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!--  Chart 1-->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Proposals - By Status</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="chart_pie"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="chart_pie_legend" style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--  Chart 2-->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Proposals - By Reporting Category</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="chart_pie_1"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="chart_pie_1_legend" style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+        <!--  Chart 3-->
+        <div class="col-xl-4 col-lg-8">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Awards</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="chart_column"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="chart_column_legend" style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-2" id="chart_table_1"></div>
+    </div>
+</div>
+{% endblock %}

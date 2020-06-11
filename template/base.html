@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/dashboard{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link href="/dashboard{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    {% block header %}{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+            <div class="sidebar-brand-icon">
+                <i class="fas fa-home fa-sm fa-fw"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3 mt-2 mb-2">UF CTSI COVID19 Dashboard</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item {{'active' if (request.path=='/ufirst') else ''}}">
+            <a class="nav-link" href="/dashboard/ufirst">
+                <i class="fas fa-fw fa-newspaper"></i>
+                <span>Proposals and Awards</span>
+            </a>
+        </li>
+        <li class="nav-item {{'active' if (request.path=='/irb') else ''}}">
+            <a class="nav-link" href="/dashboard/irb">
+                <i class="fas fa-fw fa-list-alt"></i>
+                <span>IRB Submissions</span></a>
+        </li>
+        <li class="nav-item {{'active' if (request.path=='/enrollment') else ''}}">
+            <a class="nav-link" href="/dashboard/enrollment">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Enrollment</span>
+            </a>
+        </li>
+
+    </ul>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            {% if message %}
+            <div class="text-center mx-auto mt-5 alert alert-danger col-md-6" role="alert">{{ message }}</div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white mb-0">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; University of Florida 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Welcome to the UF CTSI COVID19 Task Force Dashboard </h6>
+            <p class="mb-0">This data includes the COVID19 proposals, IRB submissions and enrollments. Explore the data
+                by clicking view details or the tabs in the menu.</p>
+        </div>
+        <div class="card-body">
+            <div class="text-center">
+                <img alt="" class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+                     src="/dashboard{{ url_for('static', filename='images/data.svg') }}" style="width: 25rem;">
+            </div>
+            <div class="row">
+                <!-- Total Proposals Example -->
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total
+                                        Proposals
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_proposals}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="/dashboard/ufirst" rel="nofollow">View details &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total IRBs Example -->
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total IRBs
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_irb}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="/dashboard/irb" rel="nofollow">View details &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Enrollment Example -->
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total
+                                        Enrollment
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{total_enrollments}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="/dashboard/enrollment" rel="nofollow">View details &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

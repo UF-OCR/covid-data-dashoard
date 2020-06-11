@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+            var result_data =  {{ result|safe }};
+            var total_protocols =  {{ total_protocols|safe }};
+            var total_enrollments =  {{ total_enrollments|safe }};
+
+</script>
+<script src="/dashboard{{ url_for('static', filename='js/util.js', version='2') }}" type="text/javascript"></script>
+<script src="/dashboard{{ url_for('static', filename='js/enrollment_chart.js', version='2') }}"
+        type="text/javascript"></script>
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col-xl-6">
+            <!-- Filters -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Apply Filter(s):
+                        <a class="link float-right" href="#" onclick="changeOptions(0);">reset</a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <select class="col custom-select" id="reporting_category" onchange="changeOptions(1);">
+                            <option value="0">Reporting Category</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Card 1 -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Enrollment</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total_enrolled">
+                                {{total_enrollments}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Protocols</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total_count">{{total_protocols}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--  Chart 1-->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Protocols - By Status</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="pie_chart_3"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="pie_chart_3_legend" style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+        <!--  Chart 2-->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Protocols - By Reporting Category</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="pie_chart_1"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="pie_chart_1_legend" style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+        <!--  Chart 1-->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Protocols - By Phase</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="pie_chart_2"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="pie_chart_2_legend" style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col" id="table_1"></div>
+</div>
+{% endblock %}

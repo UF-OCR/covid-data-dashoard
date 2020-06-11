@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+            result_data =  {{ result|safe }}
+
+</script>
+<script src="/dashboard{{ url_for('static', filename='js/util.js', version='2') }}" type="text/javascript"></script>
+<script src="/dashboard{{ url_for('static', filename='js/irb_chart.js', version='2') }}"
+        type="text/javascript"></script>
+<div class="container-fluid mt-2">
+    <div class="row">
+        <!-- Filters -->
+        <div class="col-xl-10">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Apply Filter(s):
+                        <a class="link float-right" href="#" onclick="changeOptions(0,null);">reset</a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <select class="col-sm custom-select m-1 mb-3" id="committee" onchange="changeOptions(1,null);">-->
+                            <option value="">Committee</option>
+                        </select>
+                        <select class="col-sm custom-select form-control m-1 mb-3" id="status"
+                                onchange="changeOptions(1,null);">
+                            <option value="">Status</option>
+                        </select>
+                        <select class="col-sm custom-select form-control m-1 mb-3" id="review_type"
+                                onchange="changeOptions(1,null);">
+                            <option value="">Review Type</option>
+                        </select>
+                        <select class="col-sm custom-select form-control m-1 mb-3" id="reporting_category"
+                                onchange="changeOptions(1,null);">
+                            <option value="">Reporting Category</option>
+                        </select>
+                        <select class="col-sm custom-select form-control m-1 mb-3" id="pi"
+                                onchange="changeOptions(1,null);">
+                            <option value="">PI</option>
+                        </select>
+                    </div>
+                    <label> IRB Submissions MM/YYYY Range: </label>
+                    <input class="form-input ml-1" id="range_start" name="range_start" onchange="changeOptions(1,1);"
+                           type="month">
+                    <span>between</span>
+                    <input class="form-input" id="range_end" name="range_end" onchange="changeOptions(1,1);"
+                           type="month">
+                </div>
+            </div>
+        </div>
+        <!-- Card 1 -->
+        <div class="col-xl-2 mt-5">
+            <div class="card border-left-primary shadow py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">IRB Submissions</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total_count"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-xl-12">
+            <ul class="nav bg-white nav-pills mb-3 p-2 rounded" id="pills-tab" role="tablist">
+                <label class="font-weight-bold mt-2 mr-1">Categorize By:</label>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-normal active" id="1" onclick="changeOptions(1,1);">Committee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-normal" id="3" onclick="changeOptions(3,3);">Reporting Category</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <!--  Chart 1-->
+        <div class="col-xl-6 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">IRB Submissions</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="chart_pie"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="chart_pie_legend"></div>
+                </div>
+            </div>
+        </div>
+        <!--  Chart 2-->
+        <div class="col-xl-6 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">IRB Submissions, Submitted for Review</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" id="chart_line_1"></div>
+                    </div>
+                    <div class="col-md-12 overflow-auto mt-2" id="chart_line_1_legend"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col m-0 mt-0" id="chart_table_1"></div>
+</div>
+{% endblock %}
