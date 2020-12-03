@@ -49,10 +49,11 @@ class Ufirst:
                 total_direct = df['CLK_TOTAL_DIRECT_COSTS'].sum()
                 total_indirect = df['CLK_TOTAL_INDIRECT_COSTS'].sum()
                 grand_total = df['CLK_GRAND_TOTAL'].sum()
-                result_group = ['CLK_PROPOSAL_ID', 'CLK_CURRENTSTATE', 'Reporting Category', 'CLK_PI_NAME',
+                result_group = ['CLK_PROPOSAL_ID', 'CLK_CURRENTSTATE', 'Reporting Category', 'CLK_TITLE', 'CLK_PI_NAME',
                                 'CLK_PI_HOME_DEPT', 'CLK_SPONSOR_NAME', 'CLK_TOTAL_DIRECT_COSTS',
                                 'CLK_TOTAL_INDIRECT_COSTS', 'CLK_GRAND_TOTAL']
                 result = df[result_group].to_numpy().tolist()
+
                 return result, total_proposals, total_direct, total_indirect, grand_total
             return None, None, None, None, None
         except:
