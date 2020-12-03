@@ -11,12 +11,13 @@ function drawDashboard() {
         main_data.addColumn('string', 'PROPOSAL ID'); //0
         main_data.addColumn('string', 'STATUS'); //1
         main_data.addColumn('string', 'REPORTING CATEGORY'); //2
-        main_data.addColumn('string', 'PI'); //3
-        main_data.addColumn('string', 'DEPARTMENT'); //4
-        main_data.addColumn('string', 'FUNDING SOURCE'); //5
-        main_data.addColumn('number', 'TOTAL DIRECT'); //6
-        main_data.addColumn('number', 'TOTAL INDIRECT'); //7
-        main_data.addColumn('number', 'GRAND TOTAL');//8
+        main_data.addColumn('string', 'TITLE'); //3
+        main_data.addColumn('string', 'PI'); //4
+        main_data.addColumn('string', 'DEPARTMENT'); //5
+        main_data.addColumn('string', 'FUNDING SOURCE'); //6
+        main_data.addColumn('number', 'TOTAL DIRECT'); //7
+        main_data.addColumn('number', 'TOTAL INDIRECT'); //8
+        main_data.addColumn('number', 'GRAND TOTAL');//9
 
         main_data_rows = result_data;
         main_data.addRows(main_data_rows);
@@ -50,10 +51,10 @@ function drawDashboard() {
                 filters.push({column:1,value:status})
                }
                if(pi!="0"){
-                filters.push({column:3,value:pi})
+                filters.push({column:4,value:pi})
                }
                if(dept!="0"){
-                filters.push({column:4,value:dept})
+                filters.push({column:5,value:dept})
                }
 
           if(filters.length>0){
@@ -61,19 +62,21 @@ function drawDashboard() {
                 main_data_temp.addColumn('string', 'PROPOSAL ID'); //0
                 main_data_temp.addColumn('string', 'STATUS'); //1
                 main_data_temp.addColumn('string', 'REPORTING CATEGORY'); //2
-                main_data_temp.addColumn('string', 'PI'); //3
-                main_data_temp.addColumn('string', 'DEPARTMENT'); //4
-                main_data_temp.addColumn('string', 'FUNDING SOURCE'); //5
-                main_data_temp.addColumn('number', 'TOTAL DIRECT'); //6
-                main_data_temp.addColumn('number', 'TOTAL INDIRECT'); //7
-                main_data_temp.addColumn('number', 'GRAND TOTAL');//8
+                main_data_temp.addColumn('string', 'TITLE'); //3
+                main_data_temp.addColumn('string', 'PI'); //4
+                main_data_temp.addColumn('string', 'DEPARTMENT'); //5
+                main_data_temp.addColumn('string', 'FUNDING SOURCE'); //6
+                main_data_temp.addColumn('number', 'TOTAL DIRECT'); //7
+                main_data_temp.addColumn('number', 'TOTAL INDIRECT'); //8
+                main_data_temp.addColumn('number', 'GRAND TOTAL');//9
+
                 rows = main_data.getFilteredRows(filters);
                    for(var i=0;i<rows.length;i++){
                         var row_idx = rows[i];
                         total_proposals_updated = total_proposals_updated + 1;
-                        total_direct_updated = total_direct_updated + main_data_rows[row_idx][6];
-                        total_indirect_updated = total_indirect_updated + main_data_rows[row_idx][7];
-                        grand_total_updated = grand_total_updated + main_data_rows[row_idx][8];
+                        total_direct_updated = total_direct_updated + main_data_rows[row_idx][7];
+                        total_indirect_updated = total_indirect_updated + main_data_rows[row_idx][8];
+                        grand_total_updated = grand_total_updated + main_data_rows[row_idx][9];
                         main_data_temp.addRow(main_data_rows[row_idx]);
                    }
                create_table_and_draw(main_data_temp, false, cat)
@@ -108,17 +111,17 @@ function create_table_and_draw(data, fill_options, category){
                     status.add(option);
             }
             var pi = document.getElementById("pi");
-            for(i=0; i<data.getDistinctValues(3).length; i++){
-                var option = document.createElement("option");
-                    option.text = data.getDistinctValues(3)[i];
-                    option.value = data.getDistinctValues(3)[i];
-                    pi.add(option);
-            }
-             var dept = document.getElementById("dept");
             for(i=0; i<data.getDistinctValues(4).length; i++){
                 var option = document.createElement("option");
                     option.text = data.getDistinctValues(4)[i];
                     option.value = data.getDistinctValues(4)[i];
+                    pi.add(option);
+            }
+             var dept = document.getElementById("dept");
+            for(i=0; i<data.getDistinctValues(5).length; i++){
+                var option = document.createElement("option");
+                    option.text = data.getDistinctValues(5)[i];
+                    option.value = data.getDistinctValues(5)[i];
                     dept.add(option);
             }
        }
@@ -129,17 +132,17 @@ function create_table_and_draw(data, fill_options, category){
 
        pie_data_2 = create_group(data,[2],0,"count");
 
-       column_data_1 = create_group(data,[category],6,"sum");
+       column_data_1 = create_group(data,[category],7,"sum");
        for (var i = 0; i < column_data_1.getNumberOfRows(); i++) {
             column_data_1.setCell(i,0,column_data_1.getValue(i,0).slice(2, column_data_1.getValue(i,0).length));
        }
 
-       column_data_2 = create_group(data,[category],7,"sum");
+       column_data_2 = create_group(data,[category],8,"sum");
         for (var i = 0; i < column_data_2.getNumberOfRows(); i++) {
             column_data_2.setCell(i,0,column_data_2.getValue(i,0).slice(2, column_data_2.getValue(i,0).length));
        }
 
-       column_data_3 = create_group(data,[category],8,"sum");
+       column_data_3 = create_group(data,[category],9,"sum");
         for (var i = 0; i < column_data_3.getNumberOfRows(); i++) {
             column_data_3.setCell(i,0,column_data_3.getValue(i,0).slice(2, column_data_3.getValue(i,0).length));
        }
