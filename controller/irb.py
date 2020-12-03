@@ -62,7 +62,7 @@ class Irb:
                 df['Date Submitted Year'] = pd.DatetimeIndex(df['Date Submitted']).year
                 df['Date Submitted Month'] = df['Date Submitted Month'].fillna(0)
                 df['Date Submitted Year'] = df['Date Submitted Year'].fillna(20200)
-                remove_index = df[df['Date Submitted Year'] < 2020].index
+                remove_index = df[(df['Reporting Category'] == 'IGNORE') | (df['Date Submitted Year'] < 2020)].index
                 if len(remove_index):
                     df.drop(df.index[remove_index], inplace=True)
                 df['Date Submitted Year'] = df['Date Submitted Year'].replace(20200, 0)

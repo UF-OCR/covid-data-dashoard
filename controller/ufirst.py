@@ -15,6 +15,9 @@ class Ufirst:
             total_proposals = 0
             if data is not None:
                 df = pd.read_excel(data)
+                remove_index = df[df['Reporting Category'] == 'IGNORE'].index
+                if len(remove_index):
+                    df.drop(df.index[remove_index], inplace=True)
                 total_proposals = len(df["CLK_PROPOSAL_ID"].index)
             return total_proposals
         except:
@@ -45,6 +48,9 @@ class Ufirst:
                 df['CLK_CURRENTSTATE'] = df['CLK_CURRENTSTATE'].map(status_mapping)
                 df['CLK_CURRENTSTATE'] = df['CLK_CURRENTSTATE'].fillna("6-Unmapped")
                 df = df.fillna("")
+                remove_index = df[df['Reporting Category']=='IGNORE'].index
+                if len(remove_index):
+                    df.drop(df.index[remove_index], inplace=True)
                 total_proposals = len(df["CLK_PROPOSAL_ID"].index)
                 total_direct = df['CLK_TOTAL_DIRECT_COSTS'].sum()
                 total_indirect = df['CLK_TOTAL_INDIRECT_COSTS'].sum()
