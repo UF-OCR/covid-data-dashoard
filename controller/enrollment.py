@@ -83,7 +83,7 @@ class Enrollment:
                     result.append(res)
                 data = read_file(self.irb_url)
                 if data is not None:
-                    df1 = pd.read_excel(data)
+                    df1 = pd.read_excel(data, engine='openpyxl')
                     if df1 is not None:
                         df1['Reporting Category'] = df1['Reporting Category'].fillna("")
                         df1 = df1[['ID', 'Reporting Category']]
