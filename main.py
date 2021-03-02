@@ -3,7 +3,7 @@ import sys
 
 import requests
 from flask import render_template
-
+from flask import Response
 from config import config
 from controller.enrollment import Enrollment
 from controller.irb import Irb
@@ -102,3 +102,6 @@ def get_enrollment_data():
         print(sys.exc_info())
         return render_template('base.html',
                                message="Something went wrong!! Please report this incident to ocr-apps@ahc.ufl.edu.")
+
+def health():
+    return Response("Healthy", status=200, mimetype='application/json')
