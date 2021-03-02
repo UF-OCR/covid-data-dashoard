@@ -14,7 +14,7 @@ class Irb:
             data = read_file(self.url)
             total_irb = 0
             if data is not None:
-                df = pd.read_excel(data)
+                df = pd.read_excel(data, engine='openpyxl')
                 df['Date Submitted Month'] = pd.DatetimeIndex(df['Date Submitted']).month
                 df['Date Submitted Year'] = pd.DatetimeIndex(df['Date Submitted']).year
                 df['Date Submitted Month'] = df['Date Submitted Month'].fillna(0)
@@ -32,7 +32,7 @@ class Irb:
         try:
             data = read_file(self.url)
             if data is not None:
-                df = pd.read_excel(data)
+                df = pd.read_excel(data, engine='openpyxl')
                 df['Reporting Category'] = df['Reporting Category'].fillna("Unassigned")
                 df['Review Type'] = df['Review Type'].fillna("Unassigned")
                 df = df.fillna("")

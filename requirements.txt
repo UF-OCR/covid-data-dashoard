@@ -1,6 +1,6 @@
 Flask==1.1
 pandas
-xlrd >= 1.0.0
+openpyxl
 numpy
 lxml==4.6.2
 pickle-mixin

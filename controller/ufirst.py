@@ -14,7 +14,7 @@ class Ufirst:
             data = read_file(self.url)
             total_proposals = 0
             if data is not None:
-                df = pd.read_excel(data)
+                df = pd.read_excel(data, engine='openpyxl')
                 remove_index = df[df['Reporting Category'] == 'IGNORE'].index
                 if len(remove_index):
                     df.drop(df.index[remove_index], inplace=True)
@@ -28,7 +28,7 @@ class Ufirst:
         try:
             data = read_file(self.url)
             if data is not None:
-                df = pd.read_excel(data)
+                df = pd.read_excel(data, engine='openpyxl')
                 df['CLK_TOTAL_DIRECT_COSTS'] = df['CLK_TOTAL_DIRECT_COSTS'].fillna(0)
                 df['CLK_TOTAL_INDIRECT_COSTS'] = df['CLK_TOTAL_INDIRECT_COSTS'].fillna(0)
                 df['CLK_GRAND_TOTAL'] = df['CLK_GRAND_TOTAL'].fillna(0)
