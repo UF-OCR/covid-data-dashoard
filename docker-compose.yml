@@ -1,0 +1,17 @@
+version: "3.5"
+services:
+  covid_dashboard:
+    container_name: ${container_name}
+    image: ${image}:${tag}
+    restart: unless-stopped
+    env_file:
+      - ${env_file}
+    ports:
+      - ${ports}
+    healthcheck:
+      test: curl --fail -s ${health_check} || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
+    stdin_open: true
+    tty: true
