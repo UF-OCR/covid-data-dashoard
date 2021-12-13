@@ -2,7 +2,7 @@ Flask==1.1
 pandas
 openpyxl
 numpy
-lxml==4.6.3
+lxml==4.6.5
 pickle-mixin
 cachelib
 requests
